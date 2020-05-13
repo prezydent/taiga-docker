@@ -4,12 +4,12 @@ set -e
 
 correct_permissions () {
     echo " >> Setting user id and group id"
-    usermod -u "$TAIGA_UID" taiga
-    groupmod -g "$TAIGA_GID" taiga
+    #usermod -u "$TAIGA_UID" taiga
+    #groupmod -g "$TAIGA_GID" taiga
 
     echo " >> Correcting permissions"
     touch /var/run/nginx.pid
-    chown taiga:taiga /usr/src /var/log/nginx/ /var/run/nginx.pid /var/lib/nginx /usr/src/taiga-back/media -R
+    #chown taiga:taiga /usr/src /var/log/nginx/ /var/run/nginx.pid /var/lib/nginx /usr/src/taiga-back/media -R
 }
 
 prepare_configs() {

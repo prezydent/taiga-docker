@@ -128,7 +128,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     # The maximum number of pending connections
     GUNICORN_BACKLOG=2048 \
     # Enable or not the webhooks
-    TAIGA_ENABLE_WEBHOOKS=False
+    TAIGA_ENABLE_WEBHOOKS=False \
+    # From heroku
+    PORT=80
 
 COPY bin/plugins/plugin-manager.py /opt/riotkit/bin/
 COPY bin/cron/send-mail-notifications.sh /opt/riotkit/bin/
@@ -198,7 +200,7 @@ RUN cp /opt/taiga-conf/taiga/local.py /usr/src/taiga-back/settings/local.py \
     && mkdir -p /var/log/nginx /var/lib/nginx \
     && touch /var/run/nginx.pid
 
-EXPOSE 80 9001
+EXPOSE $PORT 9001
 VOLUME /usr/src/taiga-back/media
 WORKDIR /usr/src/taiga-back
 
@@ -206,4 +208,4 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
 
 HEALTHCHECK --interval=1m --timeout=5s \
-  CMD curl -s -f http://localhost/ || exit 1
+  CMD curl -s -f http://localhost:$PORT/ || exit 1
