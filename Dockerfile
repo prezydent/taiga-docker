@@ -200,6 +200,9 @@ RUN cp /opt/taiga-conf/taiga/local.py /usr/src/taiga-back/settings/local.py \
     && mkdir -p /var/log/nginx /var/lib/nginx \
     && touch /var/run/nginx.pid
 
+COPY images/* /usr/src/taiga-front-dist/dist/images/
+COPY themes/* /usr/src/taiga-front-dist/dist/v-1589301622195/styles/
+
 EXPOSE $PORT 9001
 VOLUME /usr/src/taiga-back/media
 WORKDIR /usr/src/taiga-back
